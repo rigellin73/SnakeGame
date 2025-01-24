@@ -48,6 +48,7 @@ while not game_over:
     if snake.head.distance(food) < FOOD_COLLISION_DIST:
         food.refresh()
         scoreboard.update_score()
+        snake.add_new_segment()
 
     x_collision = snake.head.xcor() > WALL_COLLISION_DIST_X or snake.head.xcor() < -WALL_COLLISION_DIST_X
     y_collision = snake.head.ycor() > WALL_COLLISION_DIST_Y or snake.head.ycor() < -WALL_COLLISION_DIST_Y

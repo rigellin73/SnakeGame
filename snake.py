@@ -25,15 +25,16 @@ class Snake:
     def create_snake(self):
         """Create snake from segments at the start"""
         for snake_part_num in range(START_SNAKE_LEN):
-            new_snake_part = self.create_snake_part()
-            new_snake_part.goto(START_POS_X - TURTLE_SIDE_LEN * snake_part_num, START_POS_Y)
+            pos = (START_POS_X - TURTLE_SIDE_LEN * snake_part_num, START_POS_Y)
+            new_snake_part = self.create_snake_part(pos)
             self.snake.insert(0, new_snake_part)
 
-    def create_snake_part(self):
+    def create_snake_part(self, position):
         """Create single snake segment with default settings and return it"""
         snake_part = Turtle(TURTLE_SHAPE)
         snake_part.color(TURTLE_COLOR)
         snake_part.penup()
+        snake_part.goto(position)
         return snake_part
 
     def move(self):
@@ -50,3 +51,8 @@ class Snake:
         """Turn the snake's head in one of the directions: EAST, NORTH, WEST or SOUTH"""
         if not abs(self.head.heading() - DIRECTION_ANGLE[direction]) == 180:
             self.head.setheading(DIRECTION_ANGLE[direction])
+
+    def add_new_segment(self):
+        """Add new segment to the snake"""
+        new_segment = self.create_snake_part(self.snake[0].position())
+        self.snake.insert(0, new_segment)
