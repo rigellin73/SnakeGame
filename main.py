@@ -2,13 +2,14 @@ import time
 import turtle
 from turtle import Screen
 from snake import Snake
+from food import Food
 
 # Constants
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = SCREEN_WIDTH
 BGR_COLOR = "black"
 GAME_TITLE = "Snake Game"
-ANIMATION_SLEEP_TIME = 0.5
+ANIMATION_SLEEP_TIME = 0.1
 
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -17,6 +18,7 @@ screen.title(GAME_TITLE)
 screen.tracer(0)
 
 snake = Snake()
+food = Food()
 game_over = False
 
 def turn_right():
@@ -41,5 +43,8 @@ while not game_over:
     screen.update()
     time.sleep(ANIMATION_SLEEP_TIME)
     snake.move()
+
+    if snake.head.distance(food) < 15:
+        food.refresh()
 
 screen.exitonclick()
