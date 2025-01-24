@@ -20,6 +20,7 @@ class Snake:
     def __init__(self):
         self.snake = []
         self.create_snake()
+        self.head = self.snake[-1]
 
     def create_snake(self):
         """Create snake from segments at the start"""
@@ -47,4 +48,5 @@ class Snake:
 
     def turn(self, direction):
         """Turn the snake's head in one of the directions: EAST, NORTH, WEST or SOUTH"""
-        self.snake[-1].setheading(DIRECTION_ANGLE[direction])
+        if not abs(self.head.heading() - DIRECTION_ANGLE[direction]) == 180:
+            self.head.setheading(DIRECTION_ANGLE[direction])
