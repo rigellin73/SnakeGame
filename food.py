@@ -2,6 +2,7 @@ from turtle import Turtle
 from screen_settings import SCREEN_WIDTH, SCREEN_HEIGHT
 from random import randint
 
+# Constants
 MAX_FOOD_POS_X = SCREEN_WIDTH / 2 - 20
 MAX_FOOD_POS_Y = SCREEN_HEIGHT / 2 - 20
 SIZE_STRETCH = 0.5
@@ -20,6 +21,7 @@ class Food(Turtle):
         self.refresh()
 
     def refresh(self):
+        """Move food to a new random position on the screen"""
         rand_x = randint(-MAX_FOOD_POS_X, MAX_FOOD_POS_X)
         rand_y = randint(-MAX_FOOD_POS_Y, MAX_FOOD_POS_Y)
         self.goto(rand_x, rand_y)

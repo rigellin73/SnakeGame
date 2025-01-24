@@ -6,10 +6,11 @@ from food import Food
 from scoreboard import Scoreboard
 from screen_settings import SCREEN_WIDTH, SCREEN_HEIGHT, BGR_COLOR, GAME_TITLE, ANIMATION_SLEEP_TIME
 
-#Constants
+# Constants
 FOOD_COLLISION_DIST = 15
 WALL_COLLISION_DIST_X = SCREEN_WIDTH / 2 - 20
 WALL_COLLISION_DIST_Y = SCREEN_HEIGHT / 2 - 20
+TAIL_COLLISION_DIST = 10
 
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -45,15 +46,23 @@ while not game_over:
     time.sleep(ANIMATION_SLEEP_TIME)
     snake.move()
 
+    # Detect collision with food
     if snake.head.distance(food) < FOOD_COLLISION_DIST:
         food.refresh()
         scoreboard.update_score()
         snake.add_new_segment()
 
+    # Detect collision with wall
     x_collision = snake.head.xcor() > WALL_COLLISION_DIST_X or snake.head.xcor() < -WALL_COLLISION_DIST_X
     y_collision = snake.head.ycor() > WALL_COLLISION_DIST_Y or snake.head.ycor() < -WALL_COLLISION_DIST_Y
     if x_collision or y_collision:
         game_over = True
         scoreboard.game_over()
+
+    # detect collision with tail
+    for segment in snake.snake[:-1]:
+        if snake.head.distance(segment) < TAIL_COLLISION_DIST:
+            game_over = True
+            scoreboard.game_over()
 
 screen.exitonclick()
