@@ -4,13 +4,12 @@ from turtle import Screen
 from snake import Snake
 from food import Food
 from scoreboard import Scoreboard
+from screen_settings import SCREEN_WIDTH, SCREEN_HEIGHT, BGR_COLOR, GAME_TITLE, ANIMATION_SLEEP_TIME
 
-# Constants
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = SCREEN_WIDTH
-BGR_COLOR = "black"
-GAME_TITLE = "Snake Game"
-ANIMATION_SLEEP_TIME = 0.1
+#Constants
+FOOD_COLLISION_DIST = 15
+WALL_COLLISION_DIST_X = SCREEN_WIDTH / 2 - 20
+WALL_COLLISION_DIST_Y = SCREEN_HEIGHT / 2 - 20
 
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -46,8 +45,14 @@ while not game_over:
     time.sleep(ANIMATION_SLEEP_TIME)
     snake.move()
 
-    if snake.head.distance(food) < 15:
+    if snake.head.distance(food) < FOOD_COLLISION_DIST:
         food.refresh()
         scoreboard.update_score()
+
+    x_collision = snake.head.xcor() > WALL_COLLISION_DIST_X or snake.head.xcor() < -WALL_COLLISION_DIST_X
+    y_collision = snake.head.ycor() > WALL_COLLISION_DIST_Y or snake.head.ycor() < -WALL_COLLISION_DIST_Y
+    if x_collision or y_collision:
+        game_over = True
+        scoreboard.game_over()
 
 screen.exitonclick()

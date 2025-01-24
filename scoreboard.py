@@ -1,9 +1,12 @@
 from turtle import Turtle
+from screen_settings import SCREEN_HEIGHT
 
-TEXT_POSITION = (0, 250)
+TEXT_POSITION = (0, SCREEN_HEIGHT / 2 - 30)
 TEXT_COLOR = "white"
 ALIGNMENT = "center"
 FONT = ('Courier', 20, 'normal')
+SCORE_TEXT = "Score:"
+GAME_OVER_TEXT = "GAME OVER"
 
 class Scoreboard(Turtle):
 
@@ -18,8 +21,12 @@ class Scoreboard(Turtle):
 
     def update_text(self):
         self.clear()
-        self.write(f"Score: {self.score}", align=ALIGNMENT, font=FONT)
+        self.write(f"{SCORE_TEXT} {self.score}", align=ALIGNMENT, font=FONT)
 
     def update_score(self):
         self.score += 1
         self.update_text()
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write(GAME_OVER_TEXT, align=ALIGNMENT, font=FONT)
