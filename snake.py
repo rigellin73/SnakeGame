@@ -19,13 +19,13 @@ class Snake:
             "SOUTH": 270
         }
 
+        self.snake = []
+
         # Create default snake
         for snake_part_num in range(self.START_SNAKE_LEN):
             new_snake_part = self.create_snake_part()
             new_snake_part.goto(self.START_POS_X - self.TURTLE_SIDE_LEN * snake_part_num, self.START_POS_Y)
             self.snake.insert(0, new_snake_part)
-
-    snake = []
 
     def create_snake_part(self):
         """Create single snake segment with default settings and return it"""
