@@ -3,6 +3,7 @@ import turtle
 from turtle import Screen
 from snake import Snake
 from food import Food
+from scoreboard import Scoreboard
 
 # Constants
 SCREEN_WIDTH = 600
@@ -19,6 +20,7 @@ screen.tracer(0)
 
 snake = Snake()
 food = Food()
+scoreboard = Scoreboard()
 game_over = False
 
 def turn_right():
@@ -46,5 +48,6 @@ while not game_over:
 
     if snake.head.distance(food) < 15:
         food.refresh()
+        scoreboard.update_score()
 
 screen.exitonclick()
