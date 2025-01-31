@@ -56,13 +56,13 @@ while not game_over:
     x_collision = snake.head.xcor() > WALL_COLLISION_DIST_X or snake.head.xcor() < -WALL_COLLISION_DIST_X
     y_collision = snake.head.ycor() > WALL_COLLISION_DIST_Y or snake.head.ycor() < -WALL_COLLISION_DIST_Y
     if x_collision or y_collision:
-        game_over = True
-        scoreboard.game_over()
+        scoreboard.reset_score()
+        snake.reset_snake()
 
     # detect collision with tail
     for segment in snake.snake[:-1]:
         if snake.head.distance(segment) < TAIL_COLLISION_DIST:
-            game_over = True
-            scoreboard.game_over()
+            scoreboard.reset_score()
+            snake.reset_snake()
 
 screen.exitonclick()

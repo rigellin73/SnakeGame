@@ -1,4 +1,5 @@
 from turtle import Turtle
+from screen_settings import SCREEN_WIDTH
 
 # Constants
 START_SNAKE_LEN = 3
@@ -56,3 +57,10 @@ class Snake:
         """Add new segment to the snake"""
         new_segment = self.create_snake_part(self.snake[0].position())
         self.snake.insert(0, new_segment)
+
+    def reset_snake(self):
+        for segment in self.snake:
+            segment.goto(SCREEN_WIDTH + 100, 0)
+        self.snake.clear()
+        self.create_snake()
+        self.head = self.snake[-1]
